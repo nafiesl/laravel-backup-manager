@@ -19,6 +19,9 @@ In this Laravel application, we will get this features:
 1.  Open terminal
 *  Clone this repo and cd into project folder
 *  `composer install`
+*  Set your database credentials to `.env` file
+*  Set proper permission your `storage` folder
+*  `php artisan key:generate`
 *  `php artisan migrate`
 *  Open application in browser
 *  Register new Account
