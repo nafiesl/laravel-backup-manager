@@ -14,4 +14,8 @@ return [
     'confirm_delete' => 'YES, please delete this file!',
     'empty' => 'No backup file available.',
     'download' => 'Download this file',
+    'restore' => 'Restore database from file',
+    'sure_to_restore' => 'Are you sure to restore database with this backup file "<strong>:filename</strong>"? <br><br>Please make sure your <strong>current database has been backed up</strong>.',
+    'cancel_restore' => 'Cancel Restore',
+    'confirm_restore' => 'YES, Restore Database!',
 ];

@@ -24,6 +24,10 @@
                         <td>{{ $backup->getSize() }} Bytes</td>
                         <td>{{ date('Y-m-d H:i:s', $backup->getMTime()) }}</td>
                         <td class="text-center">
+                            <a href="{{ route('backups.index', ['action' => 'restore', 'file_name' => $backup->getFilename()]) }}"
+                                id="restore_{{ str_replace('.gz', '', $backup->getFilename()) }}"
+                                class="btn btn-warning btn-xs"
+                                title="{{ trans('backup.download') }}"><i class="fa fa-rotate-left"></i></a>
                             <a href="{{ route('backups.download', [$backup->getFilename()]) }}"
                                 id="download_{{ str_replace('.gz', '', $backup->getFilename()) }}"
                                 class="btn btn-info btn-xs"
@@ -59,6 +63,25 @@
                         {{ csrf_field() }}
                         <input type="hidden" name="file_name" value="{{ Request::get('file_name') }}">
                         <input type="submit" class="btn btn-danger" value="{{ trans('backup.confirm_delete') }}">
+                    </form>
+                </div>
+            </div>
+        @endif
+        @if (Request::get('action') == 'restore' && Request::has('file_name'))
+            <div class="panel panel-warning">
+                <div class="panel-heading"><h3 class="panel-title">{{ trans('backup.restore') }}</h3></div>
+                <div class="panel-body">
+                    <p>{!! trans('backup.sure_to_restore', ['filename' => Request::get('file_name')]) !!}</p>
+                </div>
+                <div class="panel-footer">
+                    <a href="{{ route('backups.index') }}" class="btn btn-default">{{ trans('backup.cancel_restore') }}</a>
+                    <form action="{{ route('backups.restore', Request::get('file_name')) }}"
+                        method="post"
+                        class="pull-right"
+                        onsubmit="return confirm('Click OK to Restore.')">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="file_name" value="{{ Request::get('file_name') }}">
+                        <input type="submit" class="btn btn-warning" value="{{ trans('backup.confirm_restore') }}">
                     </form>
                 </div>
             </div>

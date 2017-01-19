@@ -6,6 +6,7 @@ use BackupManager\Filesystems\Destination;
 use BackupManager\Manager;
 use Illuminate\Http\Request;
 use League\Flysystem\FileExistsException;
+use League\Flysystem\FileNotFoundException;
 
 class BackupsController extends Controller
 {
@@ -56,6 +57,16 @@ class BackupsController extends Controller
     public function download($fileName)
     {
         return response()->download(storage_path('app/backup/db/') . $fileName);
+    }
+
+    public function restore($fileName)
+    {
+        try {
+            $manager = app()->make(Manager::class);
+            $manager->makeRestore()->run('local', 'backup/db/' . $fileName, 'mysql', 'gzip');
+        } catch (FileNotFoundException $e) {}
+
+        return redirect()->route('backups.index');
     }
 
 }
