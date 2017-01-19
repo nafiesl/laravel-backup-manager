@@ -13,4 +13,5 @@ return [
     'cancel_delete' => 'Cancel Delete',
     'confirm_delete' => 'YES, please delete this file!',
     'empty' => 'No backup file available.',
+    'download' => 'Download this file',
 ];

@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => 'auth'], function() {
+    Route::get('backups/{fileName}/dl', ['as'=>'backups.download', 'uses'=>'BackupsController@download']);
     Route::resource('backups','BackupsController');
 });
 
