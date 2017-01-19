@@ -39,12 +39,8 @@ class BackupsController extends Controller
                     new Destination('local', 'backup/db/' . $fileName)
                 ], 'gzip');
 
-            // if ($fileName)
-            //     flash()->success('Backup berhasil dilakukan, nama File : ' . $fileName);
-
             return redirect()->route('backups.index');
         } catch (FileExistsException $e) {
-            // flash()->error('Database tidak dapat dibackup dengan Nama File yang sama.');
             return redirect()->route('backups.index');
         }
     }
