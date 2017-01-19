@@ -24,10 +24,14 @@
                         <td>{{ $backup->getSize() }} Bytes</td>
                         <td>{{ date('Y-m-d H:i:s', $backup->getMTime()) }}</td>
                         <td class="text-center">
+                            <a href="{{ route('backups.download', [$backup->getFilename()]) }}"
+                                id="download_{{ str_replace('.gz', '', $backup->getFilename()) }}"
+                                class="btn btn-info btn-xs"
+                                title="{{ trans('backup.download') }}"><i class="fa fa-download"></i></a>
                             <a href="{{ route('backups.index', ['action' => 'delete', 'file_name' => $backup->getFilename()]) }}"
-                                id="del_{{ $backup->getFilename() }}"
+                                id="del_{{ str_replace('.gz', '', $backup->getFilename()) }}"
                                 class="btn btn-danger btn-xs"
-                                title="{{ trans('backup.delete') }}">X</a>
+                                title="{{ trans('backup.delete') }}"><i class="fa fa-remove"></i></a>
                         </td>
                     </tr>
                     @empty

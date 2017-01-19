@@ -53,4 +53,9 @@ class BackupsController extends Controller
         return redirect()->route('backups.index');
     }
 
+    public function download($fileName)
+    {
+        return response()->download(storage_path('app/backup/db/') . $fileName);
+    }
+
 }

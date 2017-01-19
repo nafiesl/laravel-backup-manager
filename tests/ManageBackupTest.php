@@ -38,7 +38,7 @@ class ManageBackupTest extends TestCase
         $this->seePageIs(route('backups.index'));
         $this->assertTrue(file_exists(storage_path('app/backup/db') . '/new_backup1231231231.gz'));
 
-        $this->click('X');
+        $this->click('del_new_backup1231231231');
         $this->press(trans('backup.confirm_delete'));
         $this->assertFalse(file_exists(storage_path('app/backup/db') . '/new_backup1231231231.gz'));
     }
