@@ -14,6 +14,7 @@
                     <th>{{ trans('backup.file_name') }}</th>
                     <th>{{ trans('backup.file_size') }}</th>
                     <th>{{ trans('backup.created_at') }}</th>
+                    <th class="text-center">{{ trans('backup.actions') }}</th>
                 </thead>
                 <tbody>
                     @forelse($backups as $key => $backup)
@@ -22,6 +23,12 @@
                         <td>{{ $backup->getFilename() }}</td>
                         <td>{{ $backup->getSize() }} Bytes</td>
                         <td>{{ date('Y-m-d H:i:s', $backup->getMTime()) }}</td>
+                        <td class="text-center">
+                            <a href="{{ route('backups.index', ['action' => 'delete', 'file_name' => $backup->getFilename()]) }}"
+                                id="del_{{ $backup->getFilename() }}"
+                                class="btn btn-danger btn-xs"
+                                title="{{ trans('backup.delete') }}">X</a>
+                        </td>
                     </tr>
                     @empty
                     <tr>
@@ -33,6 +40,25 @@
         </div>
     </div>
     <div class="col-md-4">
+        @if (Request::get('action') == 'delete' && Request::has('file_name'))
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ trans('backup.delete') }}</h3>
+                </div>
+                <div class="panel-body">
+                    <p>{!! trans('backup.sure_to_delete_file', ['filename' => Request::get('file_name')]) !!}</p>
+                </div>
+                <div class="panel-footer">
+                    <a href="{{ route('backups.index') }}" class="btn btn-default">{{ trans('backup.cancel_delete') }}</a>
+                    <form action="{{ route('backups.destroy', Request::get('file_name')) }}" method="post" class="pull-right">
+                        {{ method_field('delete') }}
+                        {{ csrf_field() }}
+                        <input type="hidden" name="file_name" value="{{ Request::get('file_name') }}">
+                        <input type="submit" class="btn btn-danger" value="{{ trans('backup.confirm_delete') }}">
+                    </form>
+                </div>
+            </div>
+        @endif
         <div class="panel panel-default">
             <div class="panel-body">
                 <form action="{{ route('backups.store') }}" method="post">

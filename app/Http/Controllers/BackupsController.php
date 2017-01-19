@@ -45,4 +45,12 @@ class BackupsController extends Controller
         }
     }
 
+    public function destroy($fileName)
+    {
+        if (file_exists(storage_path('app/backup/db/') . $fileName)) {
+            unlink(storage_path('app/backup/db/') . $fileName);
+        }
+        return redirect()->route('backups.index');
+    }
+
 }

@@ -24,4 +24,22 @@ class ManageBackupTest extends TestCase
         unlink(storage_path('app/backup/db') . '/new_backup.1231231231.gz');
         $this->assertFalse(file_exists(storage_path('app/backup/db') . '/new_backup.1231231231.gz'));
     }
+
+    /** @test */
+    public function it_can_delete_a_backup_file()
+    {
+        $this->signInAsAdmin();
+
+        $this->visit(route('backups.index'));
+        $this->seePageIs(route('backups.index'));
+        $this->type('new_backup1231231231','file_name');
+        $this->press(trans('backup.create'));
+
+        $this->seePageIs(route('backups.index'));
+        $this->assertTrue(file_exists(storage_path('app/backup/db') . '/new_backup1231231231.gz'));
+
+        $this->click('X');
+        $this->press(trans('backup.confirm_delete'));
+        $this->assertFalse(file_exists(storage_path('app/backup/db') . '/new_backup1231231231.gz'));
+    }
 }
