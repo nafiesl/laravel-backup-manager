@@ -93,9 +93,22 @@
                     <div class="form-group">
                         <label for="file_name" class="control-label">{{ trans('backup.create') }}</label>
                         <input type="text" name="file_name" class="form-control" placeholder="{{ date('Y-m-d_Hi') }}">
+                        {!! $errors->first('file_name', '<div class="text-danger text-right">:message</div>') !!}
                     </div>
                     <div class="form-group">
                         <input type="submit" value="{{ trans('backup.create') }}" class="btn btn-success">
+                    </div>
+                </form>
+                <hr>
+                <form action="{{ route('backups.upload') }}" method="post" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        <label for="backup_file" class="control-label">{{ trans('backup.upload') }}</label>
+                        <input type="file" name="backup_file" class="form-control">
+                        {!! $errors->first('backup_file', '<div class="text-danger text-right">:message</div>') !!}
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="{{ trans('backup.upload') }}" class="btn btn-primary">
                     </div>
                 </form>
             </div>

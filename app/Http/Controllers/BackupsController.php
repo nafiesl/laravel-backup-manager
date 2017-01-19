@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BackupUploadRequest;
 use BackupManager\Filesystems\Destination;
 use BackupManager\Manager;
 use Illuminate\Http\Request;
@@ -65,6 +66,17 @@ class BackupsController extends Controller
             $manager = app()->make(Manager::class);
             $manager->makeRestore()->run('local', 'backup/db/' . $fileName, 'mysql', 'gzip');
         } catch (FileNotFoundException $e) {}
+
+        return redirect()->route('backups.index');
+    }
+
+    public function upload(BackupUploadRequest $request)
+    {
+        $file = $request->file('backup_file');
+
+        if (file_exists(storage_path('app/backup/db/') . $file->getClientOriginalName()) == false) {
+            $file->storeAs('backup/db', $file->getClientOriginalName());
+        }
 
         return redirect()->route('backups.index');
     }
