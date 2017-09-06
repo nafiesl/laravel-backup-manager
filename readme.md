@@ -7,25 +7,25 @@ This is a database **backup** and **restore** feature for Laravel 5.3. It uses [
 ## Features
 In this Laravel application, we will get this features:
 
-1.  Create new Backup File
-*  See Backup Files list
-*  Delete existing backup file
-*  Restore database from a backup file
-*  Download backup file
-*  Upload a backup file
+1. Create new Backup File
+2. See Backup Files list
+3. Delete existing backup file
+4. Restore database from a backup file
+5. Download backup file
+6. Upload a backup file
 
 ## How to use
 
-1.  Open terminal
-*  Clone this repo and cd into project folder
-*  `composer install`
-*  Set your database credentials to `.env` file
-*  Set proper permission your `storage` folder
-*  `php artisan key:generate`
-*  `php artisan migrate`
-*  Open application in browser
-*  Register new Account
-*  Navigate to `Database Backup Manager` menu
+1. Open terminal
+2. Clone this repo and cd into project folder
+3. `composer install`
+4. Set your database credentials to `.env` file
+5. Set proper permission your `storage` folder
+6. `php artisan key:generate`
+7. `php artisan migrate`
+8. Open application in browser
+9. Register new Account
+10. Navigate to `Database Backup Manager` menu
 
 ## License
 
